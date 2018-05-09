@@ -1,0 +1,621 @@
+\documentclass[10pt]{beamer}
+
+\usetheme{metropolis}
+\usepackage{appendixnumberbeamer}
+
+% German
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+% graphics path
+\graphicspath{{images/}}
+
+% set KIT color scheme
+\definecolor{kitGreen}{HTML}{32A189}
+\setbeamercolor{alerted text}{fg=kitGreen}
+
+% use fdsymbols and math font
+\usepackage{FiraSans}
+% \usefonttheme[onlymath]{serif}
+% \usepackage{eulervm}
+
+% coloneqq
+\usepackage{mathtools}
+
+% Math helpers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\min}{\text{min}}
+\renewcommand{\max}{\text{max}}
+
+% wide tilde by default
+\renewcommand{\tilde}[1]{\widetilde{#1}}
+
+% my favourite greek symbols
+\let\origphi\phi
+\let\phi\varphi
+\let\origtheta\theta
+\let\origepsilon\epsilon
+\let\epsilon\varepsilon
+\let\origupepsilon\upepsilon
+\let\upepsilon\upvarepsilon
+
+% better multiplication symbol
+\mathcode`\*="8000
+{\catcode`\*\active\gdef*{\cdot}}
+
+% use commas instead of points in math environments ("german notation")
+\DeclareMathSymbol{.}{\mathord}{letters}{"3B}
+
+% Footer
+\setbeamertemplate{frame footer}{\textcolor{gray}{\tiny{Jens Ochsenmeier, Seminar Fraktale Geometrie}}}
+
+% fill blocks
+\metroset{block=fill}
+
+% smaller captions
+\usepackage[font={color=gray,scriptsize,it}]{caption}
+
+\title{Seminar Fraktale}
+\subtitle{Fraktale Bildcodierung}
+\date{\today}
+\author{Jens Ochsenmeier}
+\titlegraphic{\hfill\includegraphics[height=1cm]{logo.png}}
+
+\begin{document}
+
+\maketitle
+
+% \begin{frame}{Table of contents}
+%   \setbeamertemplate{section in toc}[sections numbered]
+%   \tableofcontents[hideallsubsections]
+% \end{frame}
+
+\section{Wichtige Werkzeuge}
+
+%
+% SLIDE 1: Recap metrische Räume
+%
+\begin{frame}{Metrische Räume}
+  Menge \( X \) mit reellwertiger Funktion \( d: X \times X \to \R \), die
+  \begin{enumerate}
+    \item \alert{symmetrisch} und
+    \item \alert{positiv definit} ist und die
+    \item \alert{Dreiecksungleichung} erfüllt 
+  \end{enumerate}
+  \pause{}
+  \begin{itemize}
+    \item[\( \to \)] \emph{vollständige} metrische Räume (Cauchy-Folgen konvergieren)
+    % NOTE
+    % Gegenbeispiel vollständiger Raum: Q mit Betragsmetrik d(x,y) = |x-y|
+    \pause{}
+    \item[\( \to \)] \emph{kompakte} metrische Räume (beschränkt und abgeschlossen)
+    % NOTE
+    % Gegenbeispiel kompakter Raum: R^{n x n} mit Matrixnorm ist vollständig, aber nicht kompakt (weil nicht abgeschlossen)
+  \end{itemize}
+\end{frame}
+
+%
+% SLIDE 2: Recap Raum der Fraktale
+%
+\begin{frame}{Raum der Fraktale}
+  Raum der Fraktale über \( X \):
+  \begin{equation*}
+    \mathcal{H}(X) \coloneqq \left \{ \mathcal{A} \subseteq X : \mathcal{A} \text{ kompakt} \right \} \setminus \varnothing
+  \end{equation*}
+  \pause{}
+  \alert{Abstandsbegriffe}:
+  \begin{itemize}
+    \item \( d(x,A) \coloneqq \min\left \{ d(x,a) : a \in A \right \} \) \quad \ (\( x \in X \), \( A \in \mathcal{H}(X) \))
+    \item \( d(A,B) \coloneqq \max\left \{ d(x,B) : x \in A \right \} \) \quad (\( A, B \in \mathcal{H}(X) \))
+    \pause{}
+    \item \( h(A,B) \coloneqq \max\left \{ d(A,B),\ d(B,A) \right \} \) (Hausdorff-Abstand)
+  \end{itemize}
+  \pause{}
+  \( \to \) \alert{Raum der Fraktale} \( (\mathcal{H}(X), h) \)
+\end{frame}
+
+\begin{frame}{Fraktal}
+  \begin{quote}
+    Ein Fraktal ist eine Teilmenge von \( (\mathcal{H}(X), h) \).
+  \end{quote}
+\end{frame}
+
+\section{Abbildungen und Transformationen}
+
+\begin{frame}{Kontraktion}
+  Abbildung \( \phi: X \to X \) für die \( c \in [0,1) \) existiert, sodass
+  \begin{equation*}
+    \forall \ x,y \in X : d(\phi(x), \phi(y)) \leq c * d(x,y)
+  \end{equation*}
+  \alert{Kontraktionsfaktor}: \( c \)
+\end{frame}
+
+\begin{frame}{Ähnlichkeitsabbildung}
+  Abbildung \( \phi: X \to X \) für die \( c \in [0,1) \) existiert, sodass
+  \begin{equation*}
+    \forall \ x,y \in X : d(\phi(x), \phi(y)) = c * d(x,y)
+  \end{equation*}
+  \alert{Kontraktionsverhältnis}: \( c \)
+\end{frame}
+
+\begin{frame}{Banachscher Fixpunktsatz}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.6\textwidth}
+      \begin{minipage}[c][.4\textheight][c]{\linewidth}
+        \begin{itemize}
+          \item Kontraktion \( \phi : X \to X \)
+          \item Iterative Folge \( {\left( x_n \right)}_{n \in \N} \), \ \( x_{n+1} = \phi\left( x_n \right) \)
+          \item \emph{Beliebiger} Startwert \( x_0 \)
+        \end{itemize}
+      \end{minipage}
+    
+    % NOTE
+    % Linke obere Ecke "verfolgen" --> geht in Richtund Mitte
+    \column{0.4\textwidth}
+       \only<2>{
+         \begin{figure}
+          \newcounter{density}
+          \setcounter{density}{20}
+          \begin{tikzpicture}[scale=.6]
+            \def\couleur{alerted text.fg}
+            \path[coordinate] (0,0)  coordinate(A)
+                        ++( 90:5cm) coordinate(B)
+                        ++(0:5cm) coordinate(C)
+                        ++(-90:5cm) coordinate(D);
+            \draw[fill=\couleur!\thedensity] (A) -- (B) -- (C) --(D) -- cycle;
+            \foreach \x in {1,...,10}{%
+                \pgfmathsetcounter{density}{\thedensity+20}
+                \setcounter{density}{\thedensity}
+                \path[coordinate] coordinate(X) at (A){};
+                \path[coordinate] (A) -- (B) coordinate[pos=.10](A)
+                                    -- (C) coordinate[pos=.10](B)
+                                    -- (D) coordinate[pos=.10](C)
+                                    -- (X) coordinate[pos=.10](D);
+                \draw[fill=\couleur!\thedensity] (A)--(B)--(C)-- (D) -- cycle;
+            }
+          \end{tikzpicture}
+        \end{figure}
+       }
+  \end{columns}
+  \begin{block}{Satz (Banach, 1922)}
+    \begin{enumerate}
+      \item Es existiert genau ein \( \tilde{x} \in X \), sodass \( \phi(\tilde{x}) = \tilde{x} \).
+      \item Es ist \( \underset{n \to \infty}{\lim} x_n = \tilde{x} \).
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Lineare Transformation}
+  \alert{Lineare Transformation}
+  \begin{itemize}
+    \item bildet Geraden auf Geraden ab
+    \item fixiert den Ursprung
+  \end{itemize}
+  Darstellung durch Matrix:
+  \begin{equation*}
+    t: \R^2 \to \R^2, \qquad t(x,y) \coloneqq \begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix} * \begin{pmatrix}
+      x \\ y
+    \end{pmatrix}
+  \end{equation*}
+  Konkret: Skalieren, Spiegeln, Strecken, Drehen
+\end{frame}
+
+\begin{frame}{Affine Transformation}
+  \alert{Affine Transformation}: Lineare Transformation + Translation
+  
+  Darstellung durch Matrix:
+  \begin{equation*}
+    w: \R^2 \to \R^2, \qquad w(x,y) \coloneqq A*x + t = \underbrace{\begin{pmatrix}
+      a & b \\
+      c & d
+    \end{pmatrix} * \begin{pmatrix}
+      x \\ y
+    \end{pmatrix}}_{\text{lineare Transformation}} + \underbrace{\begin{pmatrix}
+      e \\ f
+    \end{pmatrix}}_{\text{Translation}}
+  \end{equation*}
+\end{frame}
+
+\begin{frame}{Affine Transformation --- Konstruktion}
+  \begin{enumerate}
+    \item Drei Punkte auf Startmenge wählen
+    \item Dazugehörige Punkte in Bildmenge finden
+    \item Ein paar Gleichungssysteme lösen
+    \begin{align*}
+      \left( \begin{smallmatrix}
+        a & b \\ c & d
+      \end{smallmatrix} \right) \left( \begin{smallmatrix}
+        x_1 \\ x_2
+      \end{smallmatrix} \right) + \left( \begin{smallmatrix}
+        e \\ f
+      \end{smallmatrix} \right) &= \left( \begin{smallmatrix}
+        \widetilde{x}_1 \\ \widetilde{x}_2
+      \end{smallmatrix} \right) \\
+      \left( \begin{smallmatrix}
+        a & b \\ c & d
+      \end{smallmatrix} \right) \left( \begin{smallmatrix}
+        y_1 \\ y_2
+      \end{smallmatrix} \right) + \left( \begin{smallmatrix}
+        e \\ f
+      \end{smallmatrix} \right) &= \left( \begin{smallmatrix}
+        \widetilde{y}_1 \\ \widetilde{y}_2
+      \end{smallmatrix} \right) \\
+      \left( \begin{smallmatrix}
+        a & b \\ c & d
+      \end{smallmatrix} \right) \left( \begin{smallmatrix}
+        z_1 \\ z_2
+      \end{smallmatrix} \right) + \left( \begin{smallmatrix}
+        e \\ f
+      \end{smallmatrix} \right) &= \left( \begin{smallmatrix}
+        \widetilde{z}_1 \\ \widetilde{z}_2
+      \end{smallmatrix} \right)
+    \end{align*}
+    \item[\( \to \)] \alert{affine Transformation}
+  \end{enumerate}
+\end{frame}
+
+\section{Iterierte Funktionensysteme}
+
+\begin{frame}{Iteriertes Funktionensystem (IFS)}
+  \begin{columns}[T,onlytextwidth]
+    \column{.7\textwidth}
+      \alert{IFS}: Familie \( \left \{ \Phi_1, \dots, \Phi_n \right \} \) mit \( \Phi_i : X \to X \) Kontraktion \\
+      \scriptsize{\( (X,d) \) vollständiger metrischer Raum}
+    
+      \normalsize{}
+      \alert{Kontraktionskoeffizient} \( c = \max\left \{ c_1, \dots, c_n \right \} \) \\
+      \scriptsize{(\( c_i \coloneqq \) Kontraktionsfaktor von \( \Phi_i \))}
+    
+      \normalsize{}
+      \alert{Attraktor} des IFS:\@ \( C \subset X \) derart, dass
+      \begin{equation*}
+        \bigcup_{i=0}^n \Phi_i(C) = C
+      \end{equation*}
+
+    \column{.3\textwidth}
+      % NOTE
+      % http://jsbin.com/temudexazo/edit?js,output
+      \begin{figure}
+        \includegraphics[width=.8\textwidth]{fern}
+      \end{figure}
+  \end{columns}
+\end{frame}
+
+\section{Modellierung echter Bilder}
+
+\begin{frame}{``Echte'' Bilder}
+  \alert{Echtes Bild}: \emph{Etwas, dass man irgendwo sehen oder sich zumindest zu sehen vorstellen könnte}
+
+  \begin{columns}[T,onlytextwidth]
+    \column{.5\textwidth}
+      \begin{itemize}
+        \item \( \mathcal{R} \): Menge aller echten Bilder
+        \item \( \mathcal{I} \in \mathcal{R} \): echtes Bild
+      \end{itemize}
+
+      \begin{itemize}
+        \pause{}
+        \item[\( \to \)] mathematisch nicht wirklich greifbar \\
+        \pause{}
+        \item[\( \to \)] Modellierung entlang von Eigenschaften
+      \end{itemize}
+      \pause{}
+    \column{.45\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{neuschwanstein}
+        \caption*{Schloss Neuschwanstein, Unsplash}
+      \end{figure}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}{Eigenschaft 1}
+  Ein Bild besitzt
+  \begin{enumerate}
+    \item \alert{Träger} \  \( \square = [a,b] \times [c,d] \subset \R^2 \)
+    \item \alert{Maße} \  \( (b-a) \) und \( ( c-d ) \)
+  \end{enumerate}
+
+  \begin{itemize}
+    \item[\( \to \)] Einbettung in den euklidischen Raum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Eigenschaft 2}
+  Ein Bild besitzt \alert{chromatische Werte}
+  \begin{equation*}
+    c: \square \to \R
+  \end{equation*}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Title formats}
+
+\begin{frame}{Metropolis title formats}
+	\themename supports 4 different title formats:
+	\begin{itemize}
+		\item Regular
+		\item \textsc{Small caps}
+		\item \textsc{all small caps}
+		\item ALL CAPS
+	\end{itemize}
+	They can either be set at once for every title type or individually.
+\end{frame}
+
+{
+    \metroset{titleformat frame=smallcaps}
+\begin{frame}{Small caps}
+	This frame uses the \texttt{smallcaps} title format.
+
+	\begin{alertblock}{Potential Problems}
+		Be aware that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in small caps will be typeset with the Computer Modern Serif font instead.
+	\end{alertblock}
+\end{frame}
+}
+
+{
+\metroset{titleformat frame=allsmallcaps}
+\begin{frame}{All small caps}
+	This frame uses the \texttt{allsmallcaps} title format.
+
+	\begin{alertblock}{Potential problems}
+		As this title format also uses small caps you face the same problems as with the \texttt{smallcaps} title format. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
+
+		As a rule of thumb: just use it for plaintext-only titles.
+	\end{alertblock}
+\end{frame}
+}
+
+{
+\metroset{titleformat frame=allcaps}
+\begin{frame}{All caps}
+	This frame uses the \texttt{allcaps} title format.
+
+	\begin{alertblock}{Potential Problems}
+		This title format is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
+	\end{alertblock}
+\end{frame}
+}
+
+\section{Elements}
+
+\begin{frame}[fragile]{Typography}
+      \begin{verbatim}The theme provides sensible defaults to
+\emph{emphasize} text, \alert{accent} parts
+or show \textbf{bold} results.\end{verbatim}
+
+  \begin{center}becomes\end{center}
+
+  The theme provides sensible defaults to \emph{emphasize} text,
+  \alert{accent} parts or show \textbf{bold} results.
+\end{frame}
+
+\begin{frame}{Font feature test}
+  \begin{itemize}
+    \item Regular
+    \item \textit{Italic}
+    \item \textsc{Small Caps}
+    \item \textbf{Bold}
+    \item \textbf{\textit{Bold Italic}}
+    \item \textbf{\textsc{Bold Small Caps}}
+    \item \texttt{Monospace}
+    \item \texttt{\textit{Monospace Italic}}
+    \item \texttt{\textbf{Monospace Bold}}
+    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lists}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.33\textwidth}
+      Items
+      \begin{itemize}
+        \item Milk \item Eggs \item Potatoes
+      \end{itemize}
+
+    \column{0.33\textwidth}
+      Enumerations
+      \begin{enumerate}
+        \item First, \item Second and \item Last.
+      \end{enumerate}
+
+    \column{0.33\textwidth}
+      Descriptions
+      \begin{description}
+        \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
+      \end{description}
+  \end{columns}
+\end{frame}
+\begin{frame}{Animation}
+  \begin{itemize}[<+- | alert@+>]
+    \item \alert<4>{This is\only<4>{ really} important}
+    \item Now this
+    \item And now this
+  \end{itemize}
+\end{frame}
+\begin{frame}{Figures}
+
+\end{frame}
+\begin{frame}{Tables}
+  \begin{table}
+    \caption{Largest cities in the world (source: Wikipedia)}
+    \begin{tabular}{@{} lr @{}}
+      \toprule
+      City & Population\\
+      \midrule
+      Mexico City & 20,116,842\\
+      Shanghai & 19,210,000\\
+      Peking & 15,796,450\\
+      Istanbul & 14,160,467\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+\begin{frame}{Blocks}
+  Three different block environments are pre-defined and may be styled with an
+  optional background color.
+
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+      \begin{block}{Default}
+        Block content.
+      \end{block}
+
+      \begin{alertblock}{Alert}
+        Block content.
+      \end{alertblock}
+
+      \begin{exampleblock}{Example}
+        Block content.
+      \end{exampleblock}
+
+    \column{0.5\textwidth}
+
+      \metroset{block=fill}
+
+      \begin{block}{Default}
+        Block content.
+      \end{block}
+
+      \begin{alertblock}{Alert}
+        Block content.
+      \end{alertblock}
+
+      \begin{exampleblock}{Example}
+        Block content.
+      \end{exampleblock}
+
+  \end{columns}
+\end{frame}
+\begin{frame}{Math}
+  \begin{equation*}
+    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
+  \end{equation*}
+\end{frame}
+\begin{frame}{Line plots}
+  \begin{figure}
+    \begin{tikzpicture}
+      \begin{axis}[
+        mlineplot,
+        width=0.9\textwidth,
+        height=6cm,
+      ]
+
+        \addplot {sin(deg(x))};
+        \addplot+[samples=100] {sin(deg(2*x))};
+
+      \end{axis}
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+\begin{frame}{Bar charts}
+  \begin{figure}
+    \begin{tikzpicture}
+      \begin{axis}[
+        mbarplot,
+        xlabel={Foo},
+        ylabel={Bar},
+        width=0.9\textwidth,
+        height=6cm,
+      ]
+
+      \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
+      \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
+      \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
+
+      \legend{lorem, ipsum, dolor}
+
+      \end{axis}
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+\begin{frame}{Quotes}
+  \begin{quote}
+    Veni, Vidi, Vici
+  \end{quote}
+\end{frame}
+
+{%
+\setbeamertemplate{frame footer}{My custom footer}
+\begin{frame}[fragile]{Frame footer}
+    \themename defines a custom beamer template to add a text to the footer. It can be set via
+    \begin{verbatim}\setbeamertemplate{frame footer}{My custom footer}\end{verbatim}
+\end{frame}
+}
+
+\begin{frame}{References}
+  Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Summary}
+
+  Get the source of this theme and the demo presentation from
+
+  \begin{center}\url{github.com/matze/mtheme}\end{center}
+
+  The theme \emph{itself} is licensed under a
+  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+  Attribution-ShareAlike 4.0 International License}.
+
+  \begin{center}\ccbysa\end{center}
+
+\end{frame}
+
+\begin{frame}[standout]
+  Questions?
+\end{frame}
+
+\appendix
+
+\begin{frame}[fragile]{Backup slides}
+  Sometimes, it is useful to add slides at the end of your presentation to
+  refer to during audience questions.
+
+  The best way to do this is to include the \verb|appendixnumberbeamer|
+  package in your preamble and call \verb|\appendix| before your backup slides.
+
+  \themename will automatically turn off slide numbering and progress bars for
+  slides in the appendix.
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+
+  \bibliography{demo}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+\end{document}
