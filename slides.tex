@@ -340,282 +340,105 @@
   \begin{equation*}
     c: \square \to \R
   \end{equation*}
+  Hier: \textbf{nur Graustufen}: \( c \) ist die \emph{Helligkeit} an einem bestimmten Punkt
+
+  % TODO Neuschwanstein in S/W + 3D-Plot von grayscale-map
 \end{frame}
 
+\begin{frame}{Eigenschaft 3}
+  \( \mathcal{I} \in \mathcal{R} \) besitzt \emph{keine} Auflösung!
 
+  \( \to \) verschiedene Auflösungen beschreiben dasselbe Bild
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Title formats}
-
-\begin{frame}{Metropolis title formats}
-	\themename supports 4 different title formats:
-	\begin{itemize}
-		\item Regular
-		\item \textsc{Small caps}
-		\item \textsc{all small caps}
-		\item ALL CAPS
-	\end{itemize}
-	They can either be set at once for every title type or individually.
+  % TODO Neuschwanstein in 2 verschiedenen Auflösungen
 \end{frame}
 
-{
-    \metroset{titleformat frame=smallcaps}
-\begin{frame}{Small caps}
-	This frame uses the \texttt{smallcaps} title format.
+\begin{frame}{Eigenschaft 4}
+  \( \mathcal{R} \) ist unter Zuschneiden von Bildern abgeschlossen
 
-	\begin{alertblock}{Potential Problems}
-		Be aware that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in small caps will be typeset with the Computer Modern Serif font instead.
-	\end{alertblock}
-\end{frame}
-}
-
-{
-\metroset{titleformat frame=allsmallcaps}
-\begin{frame}{All small caps}
-	This frame uses the \texttt{allsmallcaps} title format.
-
-	\begin{alertblock}{Potential problems}
-		As this title format also uses small caps you face the same problems as with the \texttt{smallcaps} title format. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
-
-		As a rule of thumb: just use it for plaintext-only titles.
-	\end{alertblock}
-\end{frame}
-}
-
-{
-\metroset{titleformat frame=allcaps}
-\begin{frame}{All caps}
-	This frame uses the \texttt{allcaps} title format.
-
-	\begin{alertblock}{Potential Problems}
-		This title format is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
-	\end{alertblock}
-\end{frame}
-}
-
-\section{Elements}
-
-\begin{frame}[fragile]{Typography}
-      \begin{verbatim}The theme provides sensible defaults to
-\emph{emphasize} text, \alert{accent} parts
-or show \textbf{bold} results.\end{verbatim}
-
-  \begin{center}becomes\end{center}
-
-  The theme provides sensible defaults to \emph{emphasize} text,
-  \alert{accent} parts or show \textbf{bold} results.
+  % TODO Neuschwanstein und zwei verschiedene Teilbereiche
 \end{frame}
 
-\begin{frame}{Font feature test}
-  \begin{itemize}
-    \item Regular
-    \item \textit{Italic}
-    \item \textsc{Small Caps}
-    \item \textbf{Bold}
-    \item \textbf{\textit{Bold Italic}}
-    \item \textbf{\textsc{Bold Small Caps}}
-    \item \texttt{Monospace}
-    \item \texttt{\textit{Monospace Italic}}
-    \item \texttt{\textbf{Monospace Bold}}
-    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
-  \end{itemize}
+\begin{frame}{Eigenschaft 5}
+  \( \mathcal{R} \) ist unter affinen Transformationen abgeschlossen
+
+  % TODO Neuschwanstein + Verzerrung
 \end{frame}
 
-\begin{frame}{Lists}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.33\textwidth}
-      Items
-      \begin{itemize}
-        \item Milk \item Eggs \item Potatoes
-      \end{itemize}
-
-    \column{0.33\textwidth}
-      Enumerations
-      \begin{enumerate}
-        \item First, \item Second and \item Last.
-      \end{enumerate}
-
-    \column{0.33\textwidth}
-      Descriptions
-      \begin{description}
-        \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
-      \end{description}
-  \end{columns}
-\end{frame}
-\begin{frame}{Animation}
-  \begin{itemize}[<+- | alert@+>]
-    \item \alert<4>{This is\only<4>{ really} important}
-    \item Now this
-    \item And now this
-  \end{itemize}
-\end{frame}
-\begin{frame}{Figures}
-
-\end{frame}
-\begin{frame}{Tables}
-  \begin{table}
-    \caption{Largest cities in the world (source: Wikipedia)}
-    \begin{tabular}{@{} lr @{}}
-      \toprule
-      City & Population\\
-      \midrule
-      Mexico City & 20,116,842\\
-      Shanghai & 19,210,000\\
-      Peking & 15,796,450\\
-      Istanbul & 14,160,467\\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-\end{frame}
-\begin{frame}{Blocks}
-  Three different block environments are pre-defined and may be styled with an
-  optional background color.
-
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-    \column{0.5\textwidth}
-
-      \metroset{block=fill}
-
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-  \end{columns}
-\end{frame}
-\begin{frame}{Math}
+\begin{frame}{Digitalisierung}
   \begin{equation*}
-    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
+    \mathcal{I} \in \mathcal{R} \leadsto \text{Pixel}
   \end{equation*}
-\end{frame}
-\begin{frame}{Line plots}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mlineplot,
-        width=0.9\textwidth,
-        height=6cm,
-      ]
+  \begin{itemize}
+    \item Welche Pixel kriegen welche Farbe?
+    \item Interpolation?
+    \item Skalierung?
+    \item[\( \to \)] Maßtheorie,\dots
+  \end{itemize}
 
-        \addplot {sin(deg(x))};
-        \addplot+[samples=100] {sin(deg(2*x))};
+  % TODO Neuschwanstein mit Raster drüber
 
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Bar charts}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mbarplot,
-        xlabel={Foo},
-        ylabel={Bar},
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-      \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
-      \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
-      \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
-
-      \legend{lorem, ipsum, dolor}
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Quotes}
-  \begin{quote}
-    Veni, Vidi, Vici
-  \end{quote}
+  \( \Rightarrow \) Gerastertes Bild mit Farben pro Pixel
 \end{frame}
 
-{%
-\setbeamertemplate{frame footer}{My custom footer}
-\begin{frame}[fragile]{Frame footer}
-    \themename defines a custom beamer template to add a text to the footer. It can be set via
-    \begin{verbatim}\setbeamertemplate{frame footer}{My custom footer}\end{verbatim}
-\end{frame}
-}
+\section{Collage-Theorem}
 
-\begin{frame}{References}
-  Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
-\end{frame}
+\begin{frame}{Collage-Theorem}
+  \begin{itemize}
+    \item vollständiger metrischer Raum \( (X,d) \)
+    \item \( L \in \mathcal{H}(X) \)
+    \item \( \epsilon \geq 0 \)
+    \item IFS \( \left \{ \Phi_1,\dots,\Phi_n \right \} \)
+    \begin{itemize}
+      \item Kontraktionskoeffizient \( 0 \leq s < 1 \) 
+      \item Attraktor \( A \)
+    \end{itemize}
+  \end{itemize}
 
-\section{Conclusion}
-
-\begin{frame}{Summary}
-
-  Get the source of this theme and the demo presentation from
-
-  \begin{center}\url{github.com/matze/mtheme}\end{center}
-
-  The theme \emph{itself} is licensed under a
-  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
-  Attribution-ShareAlike 4.0 International License}.
-
-  \begin{center}\ccbysa\end{center}
-
+  \begin{block}{Satz (Barnsley, 1992)}
+    \begin{align*}
+      h\left( L,\bigcup_{i=0}^n \Phi_i(L) \right) \leq \epsilon \Rightarrow h(L,A) \leq \frac{\epsilon}{1 - s}
+    \end{align*}
+  \end{block}
 \end{frame}
 
-\begin{frame}[standout]
-  Questions?
+\section{Stetige Abhängigkeit von Parametern}
+
+\begin{frame}{Stetige Abhängigkeit --- Fixpunkt}
+  \begin{itemize}
+    \item \( (P, d_P) \) metrischer Raum
+    \item \( (X,d) \) vollständiger metrischer Raum
+    \item \( \Phi: P \times X \to X \) Familie von Kontraktionen auf \( X \)
+    \item \( 0 \leq s < 1 \) Kontraktionskoeffizient von \( \Phi(p, \cdot) \)
+    \item \( \Phi(\cdot, x) \) stetig für jedes \( x \in X \)
+  \end{itemize}
+  \begin{block}{Lemma}
+    Der Fixpunkt \( \tilde{x}(p) \) von \( \Phi \) ist stetig abhängig von \( p \). Das heißt:
+    \begin{equation*}
+      \tilde{x} : P \to X \ \text{ist stetig.}
+    \end{equation*}
+  \end{block}
 \end{frame}
 
-\appendix
-
-\begin{frame}[fragile]{Backup slides}
-  Sometimes, it is useful to add slides at the end of your presentation to
-  refer to during audience questions.
-
-  The best way to do this is to include the \verb|appendixnumberbeamer|
-  package in your preamble and call \verb|\appendix| before your backup slides.
-
-  \themename will automatically turn off slide numbering and progress bars for
-  slides in the appendix.
+\begin{frame}{Stetige Abhängigkeit --- Attraktor}
+  \begin{itemize}
+    \item \( (X,d) \) und \( (P, d_P) \) wie gehabt
+    \item IFS wie gehabt
+    \item \( \Phi_i \) hänge von \( p \) im Sinne folgender Einschränkung ab:
+    \begin{equation*}
+      d(\Phi_{i,p}(x), \Phi_{i,q}(x)) \leq k * d_P(p,q)
+    \end{equation*}
+  \end{itemize}
+  \begin{block}{Satz (Barnsley, 1992)}
+    Der Attraktor \( A_p \in \mathcal{H}(X) \) ist stetig von \( p \) mittels der Hausdorff-Metrik \( h(d) \) abhängig.
+  \end{block}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{References}
-
-  \bibliography{demo}
-  \bibliographystyle{abbrv}
-
+\begin{frame}[fragile]{Quellen}
+  \begin{itemize}
+    \item Barnsley --- \textbf{Fractals Everywhere} (1993)
+    \item Barnsley, Hurd --- \textbf{Fractal Image Compression} (1993)
+  \end{itemize}
 \end{frame}
 
 \end{document}
