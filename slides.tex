@@ -317,10 +317,9 @@
     \column{.45\textwidth}
       \begin{figure}
         \includegraphics[width=\textwidth]{neuschwanstein}
-        \caption*{Schloss Neuschwanstein, Unsplash}
+        \caption*{\tiny{Schloss Neuschwanstein, Unsplash}}
       \end{figure}
   \end{columns}
-
 \end{frame}
 
 \begin{frame}{Eigenschaft 1}
@@ -342,7 +341,17 @@
   \end{equation*}
   Hier: \textbf{nur Graustufen}: \( c \) ist die \emph{Helligkeit} an einem bestimmten Punkt
 
-  % TODO Neuschwanstein in S/W + 3D-Plot von grayscale-map
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein-sw}
+    \end{figure}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein-chromatic}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Eigenschaft 3}
@@ -350,33 +359,70 @@
 
   \( \to \) verschiedene Auflösungen beschreiben dasselbe Bild
 
-  % TODO Neuschwanstein in 2 verschiedenen Auflösungen
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein}
+    \end{figure}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein-pixelated}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Eigenschaft 4}
   \( \mathcal{R} \) ist unter Zuschneiden von Bildern abgeschlossen
 
-  % TODO Neuschwanstein und zwei verschiedene Teilbereiche
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein}
+    \end{figure}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein-cropped}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Eigenschaft 5}
   \( \mathcal{R} \) ist unter affinen Transformationen abgeschlossen
 
-  % TODO Neuschwanstein + Verzerrung
+  \begin{minipage}{.375\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein}
+    \end{figure}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{.525\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein-skewed}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Digitalisierung}
   \begin{equation*}
     \mathcal{I} \in \mathcal{R} \leadsto \text{Pixel}
   \end{equation*}
-  \begin{itemize}
-    \item Welche Pixel kriegen welche Farbe?
-    \item Interpolation?
-    \item Skalierung?
-    \item[\( \to \)] Maßtheorie,\dots
-  \end{itemize}
 
-  % TODO Neuschwanstein mit Raster drüber
+  \begin{minipage}{.45\textwidth}
+    \begin{itemize}
+      \item Welche Pixel kriegen welche Farbe?
+      \item Interpolation?
+      \item Skalierung?
+      \item[\( \to \)] Maßtheorie,\dots
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{.45\textwidth}
+    \begin{figure}
+      \includegraphics[width=\textwidth]{neuschwanstein-rasterization}
+    \end{figure}
+  \end{minipage}
 
   \( \Rightarrow \) Gerastertes Bild mit Farben pro Pixel
 \end{frame}
@@ -434,10 +480,91 @@
   \end{block}
 \end{frame}
 
+\section{Bildkomprimierung}
+
+\begin{frame}{Warum Bildkomprimierung?}
+  \begin{itemize}
+    \item Auge unempfindlich gegen viele Informationsverluste
+    \item Weniger Speicherverbrauch \( \to \) billiger zu speichern
+    \item Weniger Speicherverbrauch \( \to \) schneller zu übertragen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fraktale Bildkomprimierung}
+  \textbf{Idee}: Farn kann durch 4 Transformationen erzeugt werden
+
+  \( \to \) es müssen nur 18 Zahlen gespeichert werden \( \Rightarrow \) \alert{\( \sim \) 18 Byte}
+
+  Konventionelle Speicherung: 1 Byte für 8 Pixel \( \Rightarrow \) \alert{500 mal mehr} (10kB)!\footnote{\scriptsize{\textcolor{gray}{200*400 Pixel, je höher desto mehr Bytes werden gebraucht}}}
+  
+  \  \\
+
+  \pause{}
+  \textbf{Problem}:
+  \begin{itemize}
+    \item IFS \( \to \) Bild: klar
+    \item Bild \( \to \) IFS: Wie?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fraktale Bildkomprimierung --- PIFS}
+  Wir rüsten IFS auf --- jede Kontraktion bekommt
+  \begin{enumerate}
+    \item neue Vorschrift; adaptiert Grauwert
+    \item Maske; gibt an, welcher Teil des Urbilds abgebildet wird
+  \end{enumerate}
+  \pause{}
+  \begin{align*}
+    \Phi_i: \square \supset D_i &\to w_i(D_i) \eqqcolon R_i \subset \square \\
+    \Phi_i(x,y,z) &= \begin{pmatrix}
+      a_i & b_i & 0 \\
+      c_i & d_i & 0 \\
+      0 & 0 & \alert{g_i}
+    \end{pmatrix} * \begin{pmatrix}
+      x \\ y \\ z
+    \end{pmatrix} + \begin{pmatrix}
+      e_i \\ f_i \\ \alert{h_i}
+    \end{pmatrix}
+  \end{align*}
+  \textbf{Einschränkungen}:
+  \begin{itemize}
+    \item \( \bigcup_{i=1}^n R_i = \mathcal{I} \)
+    \item \( i \neq j \Rightarrow R_i \cap R_j = \varnothing \)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fraktale Bildkomprimierung --- PIFS bestimmen}
+  \begin{enumerate}
+    \item Bild in 8*8-Quadrate unterteilen (\( R \coloneqq \left \{ R_1, \dots, R_n \right \} \), nicht-überlappend)
+    \item Bild in 16*16*-Quadrate unterteilen (\( D \coloneqq \left \{ D_1, \dots, D_m \right \} \), überlappend)
+    \item Für alle \( R_i \)-Transformationen passendes \( D_j \) suchen und eins wählen
+    \item Pro Zuordnung Belichtung und Kontrast anpassen
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Fraktale Bildkomprimierung --- PIFS bestimmen}
+  \begin{figure}
+    \includegraphics[width=.65\textwidth]{lena-pifs}
+    \caption*{\tiny{Originalbild und Lena-PIFS nach der ersten, zweiten und zehnten Iteration}}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Fraktale Bildkomprimierung --- Tuning}
+  Quadrate-basierter Algorithmus relativ naiv, erzeugt aber passable Ergebnisse
+
+  \textbf{Verbesserungen}:
+  \begin{itemize}
+    \item mehr als nur 2 Größen von Quadraten
+    \item andere geometrische Formen
+    \item \dots\  (aktuelle Forschung)
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]{Quellen}
   \begin{itemize}
     \item Barnsley --- \textbf{Fractals Everywhere} (1993)
     \item Barnsley, Hurd --- \textbf{Fractal Image Compression} (1993)
+    \item Fisher --- \textbf{Fractal Image Compression} (1992)
   \end{itemize}
 \end{frame}
 
