@@ -111,7 +111,7 @@
 \begin{frame}{Raum der Fraktale}
   Raum der Fraktale über \( X \):
   \begin{equation*}
-    \mathcal{H}(X) \coloneqq \left \{ \mathcal{A} \subseteq X : \mathcal{A} \text{ kompakt} \right \} \setminus \varnothing
+    \mathcal{H}(X) \coloneqq \left \{ A \subseteq X : A \text{ kompakt} \right \} \setminus \left \{ \varnothing \right \}
   \end{equation*}
   \pause{}
   \alert{Abstandsbegriffe}:
@@ -155,8 +155,8 @@
       \begin{minipage}[c][.4\textheight][c]{\linewidth}
         \begin{itemize}
           \item Kontraktion \( \phi : X \to X \)
-          \item Iterative Folge \( {\left( x_n \right)}_{n \in \N} \), \ \( x_{n+1} = \phi\left( x_n \right) \)
-          \item \emph{Beliebiger} Startwert \( x_0 \)
+          \item Folge \( {\left( x_n \right)}_{n \in \N} \) in \( X \) mit \( x_{n+1} = \phi\left( x_n \right) \)
+          \item \emph{Beliebiger} Startwert \( x_0 \in X \)
         \end{itemize}
       \end{minipage}
     
@@ -281,7 +281,7 @@
       \scriptsize{(\( c_i \coloneqq \) Kontraktionsfaktor von \( \Phi_i \))}
     
       \normalsize{}
-      \alert{Attraktor} des IFS:\@ \( C \subset X \) derart, dass
+      \alert{Attraktor} des IFS:\@ \( C \in \mathcal{H}(X) \) derart, dass
       \begin{equation*}
         \bigcup_{i=0}^n \Phi_i(C) = C
       \end{equation*}
