@@ -68,7 +68,7 @@
 
 \title{Seminar Fraktale}
 \subtitle{Fraktale Bildcodierung}
-\date{\today}
+\date{22.05.2018}
 \author{Jens Ochsenmeier}
 \titlegraphic{\hfill\includegraphics[height=1cm]{logo.png}}
 
@@ -459,7 +459,7 @@
     \item \( \Phi(\cdot, x) \) stetig für jedes \( x \in X \)
   \end{itemize}
   \begin{block}{Lemma}
-    Der Fixpunkt \( \tilde{x}(p) \) von \( \Phi \) ist stetig abhängig von \( p \). Das heißt:
+    Der Fixpunkt \( \tilde{x}(p) \) von \( \Phi(p,\cdot) \) ist stetig abhängig von \( p \). Das heißt:
     \begin{equation*}
       \tilde{x} : P \to X \ \text{ist stetig.}
     \end{equation*}
@@ -469,7 +469,7 @@
 \begin{frame}{Stetige Abhängigkeit --- Attraktor}
   \begin{itemize}
     \item \( (X,d) \) und \( (P, d_P) \) wie gehabt
-    \item IFS wie gehabt
+    \item IFS \( \left \{ \Phi_1, \dots, \Phi_n \right \} \) mit \( \Phi_i: P \times X \to X \) Kontraktionsfamilie
     \item \( \Phi_i \) hänge von \( p \) im Sinne folgender Einschränkung ab:
     \begin{equation*}
       d(\Phi_{i,p}(x), \Phi_{i,q}(x)) \leq k * d_P(p,q)
